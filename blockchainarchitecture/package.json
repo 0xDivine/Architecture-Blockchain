@@ -8,6 +8,10 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
+	"dependencies": {
+        "fabric-ca-client": "^2.2.19",
+        "fabric-network": "^2.2.19"
+    },
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
 		"@neoconfetti/svelte": "^1.0.0",
