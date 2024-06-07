@@ -9,11 +9,17 @@ import { buildCAClient, enrollAdmin, registerAndEnrollUser } from '../../../../.
 import { Wallet, Wallets } from 'fabric-network';
 import * as fs from 'fs';
 
+import jwt from 'jsonwebtoken'; // jwt import
+import cookie from 'cookie'; // cookie import
+
+const jwtSecret = 'test'; // jwt secret key 
+
+
 const channelName = 'mychannel';
 const chaincodeName = 'basic';
 const mspOrg1 = 'Org1MSP';
 const walletPath = path.join(path.resolve(path.dirname('')), 'wallet');
-const owner = 'typescriptUser3';
+const owner = 'typescriptUser7';
 
 const buildWallet = async (walletPath: string): Promise<Wallet> => {
     let wallet: Wallet;
@@ -86,9 +92,35 @@ async function createAsset(contract, id, color, size, owner, appraisedValue) {
 
 
 
-export const GET: RequestHandler = async () => {
+export const POST: RequestHandler = async ({ request }) => {
+    try {
+      // 1. Get JWT token & verify
+      const authHeader = request.headers.get('authorization');
+      if (!authHeader) {
+        return json({ error: 'Unauthorized' }, { status: 401 });
+      }
+      const token = authHeader.split(' ')[1];
+      const decodedToken = jwt.verify(token, jwtSecret);
+      const owner = decodedToken.username;
+  
+      // 2. Parse request body (where asset data is sent)
+      const { id, color, size, appraisedValue } = await request.json(); 
+  
+      // 3. Input Validation (add more checks as needed)
+      if (!id || !color || !size || !appraisedValue) {
+        return json({ error: 'Missing required asset data' }, { status: 400 });
+      }
+  
+       // 4. Connect to network & create asset
     const { contract, gateway } = await connectToNetwork(owner);
-    const result = await createAsset(contract, 'asset7', 'blue', '5', owner, '300');
+    const result = await createAsset(contract, id, color, size, owner, appraisedValue);
     gateway.disconnect();
-    return json(result);
+
+    // 5. Return Success (Always return a Response)
+    return json(result); // Assuming json returns a valid Response
+
+  } catch (error) {
+    // ... your error handling (always return a Response here too)
+    return json({ error: 'Internal server error' }, { status: 500 }); // Error Response
+  }
 };

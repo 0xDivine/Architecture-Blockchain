@@ -79,7 +79,7 @@ const getAllAssets = async (contract: any) => {
 }
 
 export const GET: RequestHandler = async () => {
-    const { contract, gateway } = await connectToNetwork('typescriptUser2');
+    const { contract, gateway } = await connectToNetwork('typescriptUser2F');
     const result = await getAllAssets(contract);
     gateway.disconnect();
     return json(result);
