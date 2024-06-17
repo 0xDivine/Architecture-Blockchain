@@ -23,12 +23,12 @@
 
     if (!token) {
         console.error('No token found in session storage');
-        // Handle the error (e.g., redirect to login)
+      
         return;
     }
 
     try {
-        const response = await fetch('http://localhost:5173/test/createasset', { // Or your actual endpoint
+        const response = await fetch('http://localhost:5173/test/createasset', { 
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -43,7 +43,6 @@
 
         }
 
-        // ... (rest of response handling remains the same)
     } catch (error) {
         console.log('Error calling API:', error);
     }

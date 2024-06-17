@@ -106,7 +106,7 @@ export const POST: RequestHandler = async ({ request }) => {
       // 2. Parse request body (where asset data is sent)
       const { id, color, size, appraisedValue } = await request.json(); 
   
-      // 3. Input Validation (add more checks as needed)
+      // 3. Input Validation
       if (!id || !color || !size || !appraisedValue) {
         return json({ error: 'Missing required asset data' }, { status: 400 });
       }
@@ -117,10 +117,9 @@ export const POST: RequestHandler = async ({ request }) => {
     gateway.disconnect();
 
     // 5. Return Success (Always return a Response)
-    return json(result); // Assuming json returns a valid Response
+    return json(result); 
 
   } catch (error) {
-    // ... your error handling (always return a Response here too)
     return json({ error: 'Internal server error' }, { status: 500 }); // Error Response
   }
 };
