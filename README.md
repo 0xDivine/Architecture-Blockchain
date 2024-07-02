@@ -79,7 +79,7 @@ Digital certificates are saved in: blockchainarchitecture/wallet
 
 **Demo chaincode**
 
-The chaincode during the demo is to be found in **blockchainarchitecture/chaincode/chaincode-demo**
+The chaincode during the demo is to be found in **blockchainarchitecture/chaincode/chaincode-demo/src**
 
 The demo chaincode was a perfect example to illustrate the workings of HLF
 
@@ -87,7 +87,7 @@ The demo chaincode was a perfect example to illustrate the workings of HLF
 
 **Use case chaincode**
 
-The chaincode for the specific use case can be found in **blockchainarchitecture/chaincode/chaincode-usecase**
+The chaincode for the specific use case can be found in **blockchainarchitecture/chaincode/chaincode-usecase/src**
 
 **Important Notice:** We did not use the specific use case chaincode because we did not have the correct network configuration set. (Used the default network.sh)
 We also figured that our specific use case chaincode did not bear the necessary results without having customized the channels and MSP's etc. This is why we stayed with the demochaincode. Some functions like private data are commented out, but they are implemented on the chaincode. 
